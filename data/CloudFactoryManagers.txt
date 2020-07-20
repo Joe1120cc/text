@@ -1,0 +1,2 @@
+{"myCloudFactory":{"name":"小强香皂厂","introduction":"生产香皂","myManagerID":"123456789","loginState":"正常"},"UserName":"小强","UserID":"123456789","UserPassword":"123456","UserPhoneNumber":"18988887777"}
+{"myCloudFactory":{"name":"小王手机壳厂","introduction":"生产手机壳","myManagerID":"777","loginState":"正常"},"UserName":"小王","UserID":"777","UserPassword":"777","UserPhoneNumber":"15545673214"}
