@@ -43,10 +43,9 @@ public class Product {
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
 	}
-	public Product(int productNumber, String productID, String productName, ProductType productType,
+	public Product(String productID, String productName, ProductType productType,
 			String productSpecification, String productDescription) {
 		super();
-		this.productNumber = productNumber;
 		this.productID = productID;
 		this.productName = productName;
 		this.productType = productType;

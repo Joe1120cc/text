@@ -70,10 +70,78 @@ public class MyEquipmentsJPanel extends JPanel {
 		});
 		add(btnNewButton);
 		
+		JButton btnNewButton_2_1_1 = new JButton("返回登录界面");
+		btnNewButton_2_1_1.setForeground(Color.BLACK);
+		btnNewButton_2_1_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
+		btnNewButton_2_1_1.setBackground(new Color(255, 255, 0));
+		btnNewButton_2_1_1.setBounds(750, 60, 200, 30);
+		btnNewButton_2_1_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				CloudFactoryManagerJFrame frame = CloudFactoryManagerJFrame.getInstance(userID);
+				frame.set();
+				frame.dispose();
+				LogInJFrame frame_1 = new LogInJFrame();
+				frame_1.setVisible(true);
+				
+			}
+		});
+		add(btnNewButton_2_1_1);
+		
 		JLabel lblNewLabel = new JLabel("我的设备");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(444, 25, 94, 31);
 		add(lblNewLabel);
+		
+		JButton btnNewButton_1 = new JButton("租用设备");
+		btnNewButton_1.setForeground(new Color(0, 0, 0));
+		btnNewButton_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
+		btnNewButton_1.setBackground(new Color(255, 255, 0));
+		btnNewButton_1.setBounds(175, 60, 129, 30);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				RentEquipmentJFrame frame = new RentEquipmentJFrame(userID);
+				frame.setVisible(true);
+			}
+		});
+		add(btnNewButton_1);
+		
+		JButton btnNewButton_1_1 = new JButton("远程开机");
+		btnNewButton_1_1.setForeground(Color.BLACK);
+		btnNewButton_1_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
+		btnNewButton_1_1.setBackground(new Color(0, 255, 0));
+		btnNewButton_1_1.setBounds(358, 60, 129, 30);
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				ChangeEquipmentStateJFrame frame = new ChangeEquipmentStateJFrame("远程开机",userID);
+				frame.setVisible(true);
+			}
+		});
+		add(btnNewButton_1_1);
+		
+		JButton btnNewButton_1_2 = new JButton("远程关机");
+		btnNewButton_1_2.setForeground(Color.BLACK);
+		btnNewButton_1_2.setFont(new Font("STFangsong", Font.PLAIN, 20));
+		btnNewButton_1_2.setBackground(new Color(255, 0, 0));
+		btnNewButton_1_2.setBounds(541, 60, 129, 30);
+		btnNewButton_1_2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				ChangeEquipmentStateJFrame frame = new ChangeEquipmentStateJFrame("远程关机",userID);
+				frame.setVisible(true);
+			}
+		});
+		add(btnNewButton_1_2);
 
 	}
 	
@@ -117,7 +185,23 @@ public class MyEquipmentsJPanel extends JPanel {
 			Equipment e = (Equipment)o;
 			e.setEquipmentNumber(i);
 			Vector<String> vRow = new Vector<String>();
-			if(e.getEquipmentOwnedFactory().getMyManagerID().equals(userID)) {
+			if(e.getEquipmentOwnedFactory()!=null) {
+				if(e.getEquipmentOwnedFactory().getMyManagerID().equals(userID)) {
+					e.setEquipmentNumber(i);
+					vRow.add(e.getEquipmentNumber()+"");
+					vRow.add(e.getEquipmentID());
+					vRow.add(e.getEquipmentName());
+					vRow.add(e.getEuipmentType().getEquipmentType());
+					vRow.add(e.getEquipmentSpecification());
+					vRow.add(e.getEquipmentDescription());
+					vRow.add(e.getEquipmentState());
+					vRow.add("自有设备");
+					vRow.add(e.getEquipmentOwnedFactory().getName());
+					vData.add(vRow.clone());
+					i++;
+				}
+			}
+			if(e.getRentState().equals(userID)) {
 				e.setEquipmentNumber(i);
 				vRow.add(e.getEquipmentNumber()+"");
 				vRow.add(e.getEquipmentID());
@@ -126,26 +210,14 @@ public class MyEquipmentsJPanel extends JPanel {
 				vRow.add(e.getEquipmentSpecification());
 				vRow.add(e.getEquipmentDescription());
 				vRow.add(e.getEquipmentState());
-				vRow.add("自有设备");
-				vRow.add(e.getEquipmentOwnedFactory().getName());
-				vData.add(vRow.clone());
-				i++;
-			}
-			if(e.getRentState().equals(userID)) {
-				e.setEquipmentNumber(i);
-				vRow.add(e.getEquipmentNumber()+"");
-				vRow.add(e.getEquipmentName());
-				vRow.add(e.getEuipmentType().getEquipmentType());
-				vRow.add(e.getEquipmentSpecification());
-				vRow.add(e.getEquipmentState());
 				vRow.add("租用设备");
-				vRow.add(e.getEquipmentOwnedFactory().getName());
+				vRow.add("系统所有");
 				vData.add(vRow.clone());
 				i++;
 			}
-			table.setModel(new DefaultTableModel(vData, vName));
-			FitTableColumns(table);
 		}
+		table.setModel(new DefaultTableModel(vData, vName));
+		FitTableColumns(table);
 	}
 
 }

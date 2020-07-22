@@ -71,9 +71,9 @@ public class Equipment {
 	public void setRentState(String rentState) {
 		this.rentState = rentState;
 	}
-	public void initRentState() {
-		this.rentState = null;
-	}
+//	public void initRentState() {
+//		this.rentState = null;
+//	}
 	public String getEquipmentDescription() {
 		return equipmentDescription;
 	}

@@ -1,2 +1,2 @@
-{"equipmentType":"车床"}
 {"equipmentType":"光刻机"}
+{"equipmentType":"车床"}

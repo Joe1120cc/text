@@ -1,0 +1,4 @@
+{"productNumber":0,"productID":"PDT208585203","productName":"GTX2080ti","productType":{"productType":"显卡"},"productSpecification":"230W","productDescription":"高端游戏显卡"}
+{"productNumber":0,"productID":"PDT479790800","productName":"i9-9900K","productType":{"productType":"中央处理器"},"productSpecification":"7nm处理器","productDescription":"高端CPU"}
+{"productNumber":0,"productID":"PDT367955895","productName":"Adidas劲爽沐浴露","productType":{"productType":"日常洗护"},"productSpecification":"500ml","productDescription":"个人洗护"}
+{"productNumber":0,"productID":"PDT405468100","productName":"骁龙865","productType":{"productType":"中央处理器"},"productSpecification":"5G、7nm","productDescription":"旗舰处理器"}

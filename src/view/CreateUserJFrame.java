@@ -24,7 +24,7 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 
-public class RegisterJFrame extends JFrame {
+public class CreateUserJFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -39,10 +39,10 @@ public class RegisterJFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RegisterJFrame() {
+	public CreateUserJFrame() {
 		setBounds(100, 100, 700, 500);
 		getContentPane().setLayout(null);
-		setTitle("用户注册");
+		setTitle("新建用户");
 		this.setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setLayout(null);
@@ -55,70 +55,70 @@ public class RegisterJFrame extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("登陆账号：");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(200, 30, 87, 37);
+		lblNewLabel.setBounds(215, 30, 87, 37);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("登陆密码：");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(200, 80, 87, 37);
+		lblNewLabel_1.setBounds(215, 80, 87, 37);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("真实姓名：");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(200, 130, 87, 37);
+		lblNewLabel_2.setBounds(215, 130, 87, 37);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("联系方式：");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(200, 180, 87, 37);
+		lblNewLabel_3.setBounds(215, 180, 87, 37);
 		contentPane.add(lblNewLabel_3);
 		
 		JComboBox<String> comboBox = new JComboBox<String>(vName);
-		comboBox.setBounds(300, 230, 170, 23);
+		comboBox.setBounds(315, 230, 170, 23);
 		contentPane.add(comboBox);
 		
 		JLabel lblNewLabel_3_1 = new JLabel("工厂名称：");
 		lblNewLabel_3_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3_1.setBounds(200, 280, 87, 37);
+		lblNewLabel_3_1.setBounds(215, 280, 87, 37);
 		contentPane.add(lblNewLabel_3_1);
 		
 		JLabel lblNewLabel_3_2 = new JLabel("工厂简介：");
 		lblNewLabel_3_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3_2.setBounds(200, 330, 87, 37);
+		lblNewLabel_3_2.setBounds(215, 330, 87, 37);
 		contentPane.add(lblNewLabel_3_2);
 		
 		textField = new JTextField();
-		textField.setBounds(300, 38, 170, 23);
+		textField.setBounds(315, 38, 170, 23);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(300, 87, 170, 23);
+		textField_1.setBounds(315, 87, 170, 23);
 		contentPane.add(textField_1);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(300, 137, 170, 23);
+		textField_2.setBounds(315, 137, 170, 23);
 		contentPane.add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(300, 188, 170, 23);
+		textField_3.setBounds(315, 188, 170, 23);
 		contentPane.add(textField_3);
 		
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
-		textField_4.setBounds(300, 288, 170, 23);
+		textField_4.setBounds(315, 288, 170, 23);
 		contentPane.add(textField_4);
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
-		textField_5.setBounds(300, 338, 170, 23);
+		textField_5.setBounds(315, 338, 170, 23);
 		contentPane.add(textField_5);
 		
-		JButton btnNewButton = new JButton("注册");
-		btnNewButton.setBounds(148, 396, 120, 37);
+		JButton btnNewButton = new JButton("新建");
+		btnNewButton.setBounds(139, 396, 120, 37);
 		btnNewButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -145,10 +145,11 @@ public class RegisterJFrame extends JFrame {
 							textField_3.setText("");
 							textField_4.setText("");
 							textField_5.setText("");
-							JOptionPane.showMessageDialog(null, "注册成功！");
+							JOptionPane.showMessageDialog(null, "新建成功！");
+							UserManagePanel.initTable();
 							setVisible(false);
 						}else {
-							JOptionPane.showMessageDialog(null, "注册失败！");
+							JOptionPane.showMessageDialog(null, "新建失败！");
 							textField.setText("");
 							textField.requestFocus();
 							textField_1.setText("");
@@ -166,14 +167,15 @@ public class RegisterJFrame extends JFrame {
 					}else {
 						Dealer d = new Dealer(userName, userID, userPassword, userPhoneNumber);
 						if(userContoller.addDealer(d)) {
-							JOptionPane.showMessageDialog(null, "注册成功！");
+							JOptionPane.showMessageDialog(null, "新建成功！");
 							textField.setText("");
 							textField_1.setText("");
 							textField_2.setText("");
 							textField_3.setText("");
+							UserManagePanel.initTable();
 							setVisible(false);
 						}else {
-							JOptionPane.showMessageDialog(null, "注册失败！");
+							JOptionPane.showMessageDialog(null, "新建失败！");
 							textField.setText("");
 							textField.requestFocus();
 							textField_1.setText("");
@@ -188,13 +190,12 @@ public class RegisterJFrame extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("取消");
-		btnNewButton_1.setBounds(416, 396, 120, 37);
+		btnNewButton_1.setBounds(410, 396, 120, 37);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				dispose();
+				
 			}
 		});
 		contentPane.add(btnNewButton_1);

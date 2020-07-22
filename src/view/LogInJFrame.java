@@ -3,6 +3,8 @@ package view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -89,13 +91,13 @@ public class LogInJFrame extends JFrame {
 				String userID = textField.getText();
 				String password = new String(passwordField.getPassword());
 				if(userID.equals(SuperAdministrator.ID)&&password.equals(SuperAdministrator.Password)) {
-					SuperAdministratorJFrame frame = new SuperAdministratorJFrame();
+					SuperAdministratorJFrame frame = SuperAdministratorJFrame.getInstance();
 					frame.setVisible(true);
 					dispose();
 					return;
 				}
 				if (userContoller.verify(userID, password) == 1) {
-					CloudFactoryManagerJFrame frame = new CloudFactoryManagerJFrame(userID);
+					CloudFactoryManagerJFrame frame = CloudFactoryManagerJFrame.getInstance(userID);
 					frame.setVisible(true);
 					dispose();
 				} else if (userContoller.verify(userID, password) == 2) {
@@ -108,6 +110,51 @@ public class LogInJFrame extends JFrame {
 			}
 		});
 		contentPane.add(btnNewButton);
+		
+		KeyListener keyListener = new KeyListener() {//添加监听器
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {//实现回车登录
+				// TODO Auto-generated method stub
+				if (e.getKeyChar() == KeyEvent.VK_ENTER) {// 回车
+					UserContoller userContoller = new UserContoller("User");
+					String userID = textField.getText();
+					String password = new String(passwordField.getPassword());
+					if(userID.equals(SuperAdministrator.ID)&&password.equals(SuperAdministrator.Password)) {
+						SuperAdministratorJFrame frame = SuperAdministratorJFrame.getInstance();
+						frame.setVisible(true);
+						dispose();
+						return;
+					}
+					if (userContoller.verify(userID, password) == 1) {
+						CloudFactoryManagerJFrame frame = CloudFactoryManagerJFrame.getInstance(userID);
+						frame.setVisible(true);
+						dispose();
+					} else if (userContoller.verify(userID, password) == 2) {
+						
+					} else {
+						JOptionPane.showMessageDialog(null, "您输入的账号或密码不正确！");
+						passwordField.setText("");
+						passwordField.requestFocus();
+					}
+				}
+			}
+		};
+		btnNewButton.addKeyListener(keyListener);
+		textField.addKeyListener(keyListener);// 用户名框
+		passwordField.addKeyListener(keyListener);// 密码框
 
 		JButton btnNewButton_1 = new JButton("没有账号？点击注册");
 		btnNewButton_1.setForeground(Color.RED);

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
@@ -75,6 +76,72 @@ public class EquipmentTypeManageJPanel extends JPanel {
 		});
 		add(btnNewButton);
 		
+		JButton btnNewButton_1 = new JButton("检索");
+		btnNewButton_1.setForeground(Color.WHITE);
+		btnNewButton_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
+		btnNewButton_1.setBackground(new Color(255, 153, 0));
+		btnNewButton_1.setBounds(166, 60, 80, 30);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				SearchEquipmentTypeJFrame frame = new SearchEquipmentTypeJFrame();
+				frame.setVisible(true);
+			}
+		});
+		add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("修改");
+		btnNewButton_2.setForeground(Color.WHITE);
+		btnNewButton_2.setFont(new Font("STFangsong", Font.PLAIN, 20));
+		btnNewButton_2.setBackground(new Color(0, 255, 0));
+		btnNewButton_2.setBounds(283, 60, 80, 30);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ChangeEquipmentTypeJFrame frame = new ChangeEquipmentTypeJFrame();
+				frame.setVisible(true);
+				
+				
+			}
+		});
+		add(btnNewButton_2);
+		
+		JButton btnNewButton_2_1 = new JButton("删除");
+		btnNewButton_2_1.setForeground(Color.WHITE);
+		btnNewButton_2_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
+		btnNewButton_2_1.setBackground(new Color(255, 0, 0));
+		btnNewButton_2_1.setBounds(403, 60, 80, 30);
+		btnNewButton_2_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DeleteEquipmentTypeJFrame frame = new DeleteEquipmentTypeJFrame();
+				frame.setVisible(true);
+			}
+		});
+		add(btnNewButton_2_1);
+		
+		JButton btnNewButton_2_1_1 = new JButton("返回登录界面");
+		btnNewButton_2_1_1.setForeground(Color.BLACK);
+		btnNewButton_2_1_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
+		btnNewButton_2_1_1.setBackground(new Color(255, 255, 0));
+		btnNewButton_2_1_1.setBounds(750, 60, 200, 30);
+		btnNewButton_2_1_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				SuperAdministratorJFrame frame = SuperAdministratorJFrame.getInstance();
+				frame.set();
+				frame.dispose();
+				LogInJFrame frame_1 = new LogInJFrame();
+				frame_1.setVisible(true);
+				
+			}
+		});
+		add(btnNewButton_2_1_1);
+		
 		JLabel lblNewLabel = new JLabel("设备类型列表");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(444, 25, 94, 31);
@@ -114,6 +181,23 @@ public class EquipmentTypeManageJPanel extends JPanel {
 			Vector<String> vRow = new Vector<String>();
 			vRow.add(i+"");
 			vRow.add(et.getEquipmentType());
+			i++;
+			vData.add(vRow.clone());
+		}
+		table.setModel(new DefaultTableModel(vData, vName));
+		FitTableColumns(table);
+	}
+	
+	public static void initTable(ArrayList<String> list) {
+		vName = new Vector<String>();
+		vData = new Vector<String>();
+		vName.add("序号");
+		vName.add("类型名称");
+		int i=1;
+		for(String s : list) {
+			Vector<String> vRow = new Vector<String>();
+			vRow.add(i+"");
+			vRow.add(s);
 			i++;
 			vData.add(vRow.clone());
 		}

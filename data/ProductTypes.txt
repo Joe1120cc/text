@@ -1,0 +1,3 @@
+{"productType":"中央处理器"}
+{"productType":"显卡"}
+{"productType":"日常洗护"}

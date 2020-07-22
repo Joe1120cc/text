@@ -1,2 +1,1 @@
-{"myCloudFactory":{"name":"小强香皂厂","introduction":"生产香皂","myManagerID":"123456789","loginState":"正常"},"UserName":"小强","UserID":"123456789","UserPassword":"123456","UserPhoneNumber":"18988887777"}
-{"myCloudFactory":{"name":"小王手机壳厂","introduction":"生产手机壳","myManagerID":"777","loginState":"正常"},"UserName":"小王","UserID":"777","UserPassword":"777","UserPhoneNumber":"15545673214"}
+{"myCloudFactory":{"name":"英特尔","introduction":"生产计算机硬件","myManagerID":"111","loginState":"开启"},"UserName":"熊永灿","UserID":"111","UserPassword":"222","UserPhoneNumber":"13833665544"}

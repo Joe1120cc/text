@@ -1,9 +1,12 @@
 package view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -14,10 +17,12 @@ public class SuperAdministratorJFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JMenuBar menubar1;
+	private static SuperAdministratorJFrame instance = null;
+	private ImageIcon im;
 	/**
 	 * Create the frame.
 	 */
-	public SuperAdministratorJFrame() {
+	private SuperAdministratorJFrame() {
         menubar1 = new JMenuBar();
 		
 		JMenu menu1 = new JMenu("系统设置");
@@ -81,25 +86,25 @@ public class SuperAdministratorJFrame extends JFrame {
 		item1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				changeContentPane(new UserManagePanel());
 			}
 		});
 		item2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				changeContentPane(new CloudFactoryManagePanel());
 			}
 		});
 		item31.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				changeContentPane(new ProductTypeManagePanel());
 			}
 		});
 		item32.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				changeContentPane(new ProductManagePanel());
 			}
 		});
 		item41.addActionListener(new ActionListener() {
@@ -120,10 +125,25 @@ public class SuperAdministratorJFrame extends JFrame {
 				
 			}
 		});
+		im = new ImageIcon("material/SuperAdmin.jpg");// 设置背景图
+		JLabel lblNewLabel_3 = new JLabel(im);
+		lblNewLabel_3.setBackground(new Color(255, 204, 153));
+		lblNewLabel_3.setBounds(0, 0,1000, 700);
+		contentPane.add(lblNewLabel_3);
 	}
 	public void changeContentPane(JPanel contentPane) {
 		setContentPane(contentPane);
 		revalidate();
+	}
+	public static SuperAdministratorJFrame getInstance() {
+		if (instance == null) {
+			instance = new SuperAdministratorJFrame();
+		}
+		return instance;
+	}
+	
+	public void set() {
+		changeContentPane(contentPane);
 	}
 
 }

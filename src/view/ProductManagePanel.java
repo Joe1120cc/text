@@ -22,9 +22,10 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
 import entity.Equipment;
+import entity.Product;
 import utils.FileUtils;
 
-public class EquipmentManagePanel extends JPanel {
+public class ProductManagePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JScrollPane scollPane;
 	private static JTable table;
@@ -34,7 +35,7 @@ public class EquipmentManagePanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public EquipmentManagePanel() {
+	public ProductManagePanel() {
 setLayout(null);
 		
 		table = new JTable();
@@ -62,7 +63,7 @@ setLayout(null);
 		btnNewButton_2_1_1.setForeground(Color.BLACK);
 		btnNewButton_2_1_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_2_1_1.setBackground(new Color(255, 255, 0));
-		btnNewButton_2_1_1.setBounds(780, 60, 170, 30);
+		btnNewButton_2_1_1.setBounds(750, 60, 200, 30);
 		btnNewButton_2_1_1.addActionListener(new ActionListener() {
 			
 			@Override
@@ -82,11 +83,11 @@ setLayout(null);
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(0, 102, 255));
 		btnNewButton.setFont(new Font("STFangsong", Font.PLAIN, 20));
-		btnNewButton.setBounds(40, 60, 80, 30);
+		btnNewButton.setBounds(41, 60, 80, 30);
 		btnNewButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				CreateAdminEquipmentJFrame frame = new CreateAdminEquipmentJFrame();
+				CreateProductJFrame frame = new CreateProductJFrame();
 				frame.setVisible(true);
 			}
 		});
@@ -96,11 +97,11 @@ setLayout(null);
 		btnNewButton_1.setForeground(Color.WHITE);
 		btnNewButton_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_1.setBackground(new Color(255, 153, 0));
-		btnNewButton_1.setBounds(150, 60, 80, 30);
+		btnNewButton_1.setBounds(166, 60, 80, 30);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				SearchEquipmentJFrame frame = new SearchEquipmentJFrame("Admin");
+				SearchProductJFrame frame = new SearchProductJFrame();
 				frame.setVisible(true);
 			}
 		});
@@ -110,13 +111,12 @@ setLayout(null);
 		btnNewButton_2.setForeground(Color.WHITE);
 		btnNewButton_2.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_2.setBackground(new Color(0, 255, 0));
-		btnNewButton_2.setBounds(260, 60, 80, 30);
+		btnNewButton_2.setBounds(283, 60, 80, 30);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				ChangeEquipmentJFrame frame = new ChangeEquipmentJFrame();
+				ChangeProductJFrame frame = new ChangeProductJFrame();
 				frame.setVisible(true);
 				
 			}
@@ -127,50 +127,18 @@ setLayout(null);
 		btnNewButton_2_1.setForeground(Color.WHITE);
 		btnNewButton_2_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_2_1.setBackground(new Color(255, 0, 0));
-		btnNewButton_2_1.setBounds(370, 60, 80, 30);
+		btnNewButton_2_1.setBounds(403, 60, 80, 30);
 		btnNewButton_2_1.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DeleteEquipmentJFrame frame = new DeleteEquipmentJFrame();
+				DeleteProductJFrame frame = new DeleteProductJFrame();
 				frame.setVisible(true);
 			}
 		});
 		add(btnNewButton_2_1);
 		
-		JButton btnNewButton_1_1 = new JButton("远程开机");
-		btnNewButton_1_1.setForeground(Color.BLACK);
-		btnNewButton_1_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
-		btnNewButton_1_1.setBackground(new Color(0, 255, 0));
-		btnNewButton_1_1.setBounds(480, 60, 125, 30);
-		btnNewButton_1_1.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				ChangeEquipmentStateJFrame frame = new ChangeEquipmentStateJFrame("远程开机");
-				frame.setVisible(true);
-			}
-		});
-		add(btnNewButton_1_1);
-		
-		JButton btnNewButton_1_2 = new JButton("远程关机");
-		btnNewButton_1_2.setForeground(Color.BLACK);
-		btnNewButton_1_2.setFont(new Font("STFangsong", Font.PLAIN, 20));
-		btnNewButton_1_2.setBackground(new Color(255, 0, 0));
-		btnNewButton_1_2.setBounds(635, 60, 125, 30);
-		btnNewButton_1_2.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				ChangeEquipmentStateJFrame frame = new ChangeEquipmentStateJFrame("远程关机");
-				frame.setVisible(true);
-			}
-		});
-		add(btnNewButton_1_2);
-		
-		JLabel lblNewLabel = new JLabel("设备信息列表");
+		JLabel lblNewLabel = new JLabel("产品信息列表");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(444, 25, 94, 31);
 		add(lblNewLabel);
@@ -201,72 +169,49 @@ setLayout(null);
 	public static void initTable() {
 		vName = new Vector<String>();
 		vData = new Vector<String>();
-		List<Object> data = FileUtils.getData("Equipments.txt", Equipment.class);
+		List<Object> data = FileUtils.getData("Products.txt", Product.class);
 		vName.add("序号");
-		vName.add("设备编号");
-		vName.add("设备名称");
-		vName.add("设备类型");
-		vName.add("设备规格");
-		vName.add("设备描述");
-		vName.add("设备状态");
-		vName.add("租用状态");
-		vName.add("所属工厂");
+		vName.add("产品编号");
+		vName.add("产品名称");
+		vName.add("产品类别");
+		vName.add("产品规格");
+		vName.add("产品描述");
 		int  i =1;
 		for(Object o : data) {
-			Equipment e = (Equipment)o;
-			e.setEquipmentNumber(i);
+			Product p = (Product)o;
 			Vector<String> vRow = new Vector<String>();
-			e.setEquipmentNumber(i);
-			vRow.add(e.getEquipmentNumber()+"");
-			vRow.add(e.getEquipmentID());
-			vRow.add(e.getEquipmentName());
-			vRow.add(e.getEuipmentType().getEquipmentType());
-			vRow.add(e.getEquipmentSpecification());
-			vRow.add(e.getEquipmentDescription());
-			vRow.add(e.getEquipmentState());
-			vRow.add(e.getRentState());
-			if(e.getEquipmentOwnedFactory()==null) {
-				vRow.add("系统所有");
-			}else {
-				vRow.add(e.getEquipmentOwnedFactory().getName());
-			}
+			p.setProductNumber(i);;
+			vRow.add(p.getProductNumber()+"");
+			vRow.add(p.getProductID());
+			vRow.add(p.getProductName());
+			vRow.add(p.getProductType().getProductType());
+			vRow.add(p.getProductSpecification());
+			vRow.add(p.getProductDescription());
 			vData.add(vRow.clone());
 			i++;
 		}
 		table.setModel(new DefaultTableModel(vData, vName));
 		FitTableColumns(table);
 	}
-	
-	public static void initTable(ArrayList<Equipment> list) {
+	public static void initTable(ArrayList<Product> list) {
 		vName = new Vector<String>();
 		vData = new Vector<String>();
 		vName.add("序号");
-		vName.add("设备编号");
-		vName.add("设备名称");
-		vName.add("设备类型");
-		vName.add("设备规格");
-		vName.add("设备描述");
-		vName.add("设备状态");
-		vName.add("租用状态");
-		vName.add("所属工厂");
+		vName.add("产品编号");
+		vName.add("产品名称");
+		vName.add("产品类别");
+		vName.add("产品规格");
+		vName.add("产品描述");
 		int  i =1;
-		for(Equipment e : list) {
-			e.setEquipmentNumber(i);
+		for(Product p : list) {
 			Vector<String> vRow = new Vector<String>();
-			e.setEquipmentNumber(i);
-			vRow.add(e.getEquipmentNumber()+"");
-			vRow.add(e.getEquipmentID());
-			vRow.add(e.getEquipmentName());
-			vRow.add(e.getEuipmentType().getEquipmentType());
-			vRow.add(e.getEquipmentSpecification());
-			vRow.add(e.getEquipmentDescription());
-			vRow.add(e.getEquipmentState());
-			vRow.add(e.getRentState());
-			if(e.getEquipmentOwnedFactory()==null) {
-				vRow.add("系统所有");
-			}else {
-				vRow.add(e.getEquipmentOwnedFactory().getName());
-			}
+			p.setProductNumber(i);;
+			vRow.add(p.getProductNumber()+"");
+			vRow.add(p.getProductID());
+			vRow.add(p.getProductName());
+			vRow.add(p.getProductType().getProductType());
+			vRow.add(p.getProductSpecification());
+			vRow.add(p.getProductDescription());
 			vData.add(vRow.clone());
 			i++;
 		}
