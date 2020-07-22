@@ -5,14 +5,19 @@ import java.util.List;
 
 import com.google.gson.*;
 
+/**
+ * @author 刘超20195556
+ * @Date Jul 22, 2020
+ * @Description Gson工具类
+ */
 public class GsonUtils {
-	public static String toJson(Object object) {
+	public static String toJson(Object object) {// 将数据转成Json字符串
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		//gsonBuilder.setPrettyPrinting();
+		// gsonBuilder.setPrettyPrinting();
 		com.google.gson.Gson gson = gsonBuilder.create();
 		return gson.toJson(object);
 	}
-	
+
 	/**
 	 * 将json格式字符串对象转成object (针对文件中一行是一个对象的情况)
 	 */
@@ -27,7 +32,7 @@ public class GsonUtils {
 		}
 		return obj;
 	}
-	
+
 	/**
 	 * 将json格式字符串对象转成object集合 (针对文件中一行是多个对象的情况)
 	 */

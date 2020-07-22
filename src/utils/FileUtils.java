@@ -8,7 +8,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * @author 刘超20195556
+ * @Date Jul 22, 2020
+ * @Description 文件处理工具包】类
+ */
 public class FileUtils {
 	/**
 	 * 读取文件
@@ -37,24 +41,26 @@ public class FileUtils {
 		}
 		return ret;
 	}
+
 	/**
 	 * 写入文件
 	 * 
 	 * @param data：json格式的字符串
 	 * @param filename：文件名称
+	 * @param x: 追加模式还是覆盖模式
 	 * @return
 	 * @throws IOException
 	 */
-	public static void writeData(String data, String filename,boolean x) throws IOException {
+	public static void writeData(String data, String filename, boolean x) throws IOException {
 		String fileName = "data/" + filename;
 		FileWriter writer = new FileWriter(fileName, x);
 		BufferedWriter outWriter = new BufferedWriter(writer);
 
 		outWriter.write(data);
 		outWriter.newLine();
-		//刷新流
+		// 刷新流
 		outWriter.flush();
-        outWriter.close();
+		outWriter.close();
 		writer.close();
 	}
 

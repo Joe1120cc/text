@@ -23,18 +23,24 @@ import javax.swing.table.TableColumn;
 import entity.Equipment;
 import utils.FileUtils;
 
+/**
+ * @author 刘超20195556
+ * @Date Jul 22, 2020
+ * @Description 云工厂管理员设备管理面板
+ */
 public class MyEquipmentsJPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JScrollPane scollPane;
 	private static JTable table;
-	private static Vector vName;//表头
+	private static Vector vName;// 表头
 	private static Vector vData;// 数据
+
 	/**
 	 * Create the panel.
 	 */
 	public MyEquipmentsJPanel(String userID) {
 		setLayout(null);
-		
+
 		table = new JTable();
 		table.setBounds(41, 114, 900, 500);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -42,41 +48,41 @@ public class MyEquipmentsJPanel extends JPanel {
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 		tcr.setHorizontalAlignment(SwingConstants.CENTER);
 		table.setDefaultRenderer(Object.class, tcr);
-		
+
 		scollPane = new JScrollPane();
 		scollPane.setOpaque(false);
 		scollPane.getViewport().setOpaque(false);
 		scollPane.setViewportView(table);
-		scollPane.setBounds(41,114,900,500);
+		scollPane.setBounds(41, 114, 900, 500);
 		add(scollPane);
-		
+
 		initTable(userID);
 		JLabel label = new JLabel("");
 		label.setBounds(20, 20, 942, 610);
 		label.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 		add(label);
-		
+
 		JButton btnNewButton = new JButton("新建");
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(0, 102, 255));
 		btnNewButton.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton.setBounds(41, 60, 80, 30);
 		btnNewButton.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				CreatEquipmentJFrame frame = new CreatEquipmentJFrame(userID);
 				frame.setVisible(true);
 			}
 		});
 		add(btnNewButton);
-		
+
 		JButton btnNewButton_2_1_1 = new JButton("返回登录界面");
 		btnNewButton_2_1_1.setForeground(Color.BLACK);
 		btnNewButton_2_1_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_2_1_1.setBackground(new Color(255, 255, 0));
 		btnNewButton_2_1_1.setBounds(750, 60, 200, 30);
 		btnNewButton_2_1_1.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -85,23 +91,23 @@ public class MyEquipmentsJPanel extends JPanel {
 				frame.dispose();
 				LogInJFrame frame_1 = new LogInJFrame();
 				frame_1.setVisible(true);
-				
+
 			}
 		});
 		add(btnNewButton_2_1_1);
-		
+
 		JLabel lblNewLabel = new JLabel("我的设备");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(444, 25, 94, 31);
 		add(lblNewLabel);
-		
+
 		JButton btnNewButton_1 = new JButton("租用设备");
 		btnNewButton_1.setForeground(new Color(0, 0, 0));
 		btnNewButton_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_1.setBackground(new Color(255, 255, 0));
 		btnNewButton_1.setBounds(175, 60, 129, 30);
 		btnNewButton_1.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -110,41 +116,41 @@ public class MyEquipmentsJPanel extends JPanel {
 			}
 		});
 		add(btnNewButton_1);
-		
+
 		JButton btnNewButton_1_1 = new JButton("远程开机");
 		btnNewButton_1_1.setForeground(Color.BLACK);
 		btnNewButton_1_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_1_1.setBackground(new Color(0, 255, 0));
 		btnNewButton_1_1.setBounds(358, 60, 129, 30);
 		btnNewButton_1_1.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				ChangeEquipmentStateJFrame frame = new ChangeEquipmentStateJFrame("远程开机",userID);
+				ChangeEquipmentStateJFrame frame = new ChangeEquipmentStateJFrame("远程开机", userID);
 				frame.setVisible(true);
 			}
 		});
 		add(btnNewButton_1_1);
-		
+
 		JButton btnNewButton_1_2 = new JButton("远程关机");
 		btnNewButton_1_2.setForeground(Color.BLACK);
 		btnNewButton_1_2.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_1_2.setBackground(new Color(255, 0, 0));
 		btnNewButton_1_2.setBounds(541, 60, 129, 30);
 		btnNewButton_1_2.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				ChangeEquipmentStateJFrame frame = new ChangeEquipmentStateJFrame("远程关机",userID);
+				ChangeEquipmentStateJFrame frame = new ChangeEquipmentStateJFrame("远程关机", userID);
 				frame.setVisible(true);
 			}
 		});
 		add(btnNewButton_1_2);
 
 	}
-	
+
 	public static void FitTableColumns(JTable myTable) {// 设置table边框自适应
 		JTableHeader header = myTable.getTableHeader();
 		int rowCount = myTable.getRowCount();
@@ -166,7 +172,7 @@ public class MyEquipmentsJPanel extends JPanel {
 			column.setWidth(width + myTable.getIntercellSpacing().width);
 		}
 	}
-	
+
 	public static void initTable(String userID) {
 		vName = new Vector<String>();
 		vData = new Vector<String>();
@@ -180,15 +186,15 @@ public class MyEquipmentsJPanel extends JPanel {
 		vName.add("设备状态");
 		vName.add("设备来源");
 		vName.add("所属工厂");
-		int  i =1;
-		for(Object o : data) {
-			Equipment e = (Equipment)o;
+		int i = 1;
+		for (Object o : data) {
+			Equipment e = (Equipment) o;
 			e.setEquipmentNumber(i);
 			Vector<String> vRow = new Vector<String>();
-			if(e.getEquipmentOwnedFactory()!=null) {
-				if(e.getEquipmentOwnedFactory().getMyManagerID().equals(userID)) {
+			if (e.getEquipmentOwnedFactory() != null) {
+				if (e.getEquipmentOwnedFactory().getMyManagerID().equals(userID)) {
 					e.setEquipmentNumber(i);
-					vRow.add(e.getEquipmentNumber()+"");
+					vRow.add(e.getEquipmentNumber() + "");
 					vRow.add(e.getEquipmentID());
 					vRow.add(e.getEquipmentName());
 					vRow.add(e.getEuipmentType().getEquipmentType());
@@ -201,9 +207,9 @@ public class MyEquipmentsJPanel extends JPanel {
 					i++;
 				}
 			}
-			if(e.getRentState().equals(userID)) {
+			if (e.getRentState().equals(userID)) {
 				e.setEquipmentNumber(i);
-				vRow.add(e.getEquipmentNumber()+"");
+				vRow.add(e.getEquipmentNumber() + "");
 				vRow.add(e.getEquipmentID());
 				vRow.add(e.getEquipmentName());
 				vRow.add(e.getEuipmentType().getEquipmentType());

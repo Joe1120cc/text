@@ -14,12 +14,19 @@ import javax.swing.border.EmptyBorder;
 
 import controller.EquipmentTypeController;
 import entity.EquipmentType;
+import utils.Tool;
 
+/**
+ * @author 刘超20195556
+ * @Date Jul 22, 2020
+ * @Description 新建产品类型JFrame
+ */
 public class CreateEquipmentTypeJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
+
 	/**
 	 * Create the frame.
 	 */
@@ -32,37 +39,42 @@ public class CreateEquipmentTypeJFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		
+
 		JLabel lblNewLabel = new JLabel("设备类型名称：");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(61, 77, 89, 38);
 		contentPane.add(lblNewLabel);
-		
+
 		textField = new JTextField();
 		textField.setBounds(157, 82, 168, 29);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		JButton btnNewButton = new JButton("确定");
 		btnNewButton.setBounds(50, 351, 105, 29);
 		btnNewButton.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				String equipmentType = textField.getText();
-				EquipmentType et = new EquipmentType(equipmentType);
-				EquipmentTypeController equipmentTypeController = new EquipmentTypeController("EquipmentType");
-				equipmentTypeController.addEquipmentType(et);
-				JOptionPane.showMessageDialog(null, "新增设备类型成功！");
-				EquipmentTypeManageJPanel.initTable();
-				dispose();
+				if (Tool.isEquipmentTypeExisted(equipmentType)) {
+					JOptionPane.showMessageDialog(null, "已存在同名设备类型！");
+					textField.setText("");
+				} else {
+					EquipmentType et = new EquipmentType(equipmentType);
+					EquipmentTypeController equipmentTypeController = new EquipmentTypeController("EquipmentType");
+					equipmentTypeController.addEquipmentType(et);
+					JOptionPane.showMessageDialog(null, "新增设备类型成功！");
+					EquipmentTypeManageJPanel.initTable();
+					dispose();
+				}
 			}
 		});
 		contentPane.add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("取消");
 		btnNewButton_1.setBounds(235, 351, 105, 29);
 		btnNewButton_1.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}

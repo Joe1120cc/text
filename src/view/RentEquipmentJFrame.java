@@ -27,18 +27,23 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 
+/**
+ * @author 刘超20195556
+ * @Date Jul 22, 2020
+ * @Description 租借设备JFrame
+ */
 public class RentEquipmentJFrame extends JFrame {
 
 	private JPanel contentPane;
 	private static final long serialVersionUID = 1L;
 	private JScrollPane scollPane;
 	private static JTable table;
-	private static Vector vName;//表头
+	private static Vector vName;// 表头
 	private static Vector vData;// 数据
 	private JLabel lblNewLabel;
 	private JTextField textField;
 	private JButton btnNewButton;
-	
+
 	public RentEquipmentJFrame(String userID) {
 		setBounds(100, 100, 1000, 700);
 		contentPane = new JPanel();
@@ -46,9 +51,9 @@ public class RentEquipmentJFrame extends JFrame {
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		this.setLocationRelativeTo(null);
-		
-        getContentPane().setLayout(null);
-		
+
+		getContentPane().setLayout(null);
+
 		table = new JTable();
 		table.setBounds(41, 114, 900, 500);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -57,40 +62,40 @@ public class RentEquipmentJFrame extends JFrame {
 		tcr.setHorizontalAlignment(SwingConstants.CENTER);
 		table.setDefaultRenderer(Object.class, tcr);
 		initTable();
-		
+
 		scollPane = new JScrollPane();
 		scollPane.setOpaque(false);
 		scollPane.getViewport().setOpaque(false);
 		scollPane.setViewportView(table);
-		scollPane.setBounds(41,114,900,500);
+		scollPane.setBounds(41, 114, 900, 500);
 		contentPane.add(scollPane);
-		
+
 		lblNewLabel = new JLabel(" 输入需要租用的设备ID：");
 		lblNewLabel.setBounds(65, 36, 161, 32);
 		contentPane.add(lblNewLabel);
-		
+
 		textField = new JTextField();
 		textField.setBounds(223, 40, 191, 25);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		btnNewButton = new JButton("租用");
 		btnNewButton.setBackground(new Color(255, 255, 0));
 		btnNewButton.setBounds(463, 36, 108, 32);
 		btnNewButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String ID = textField.getText();
-				if(Tool.isEquipmentIDExisted(ID)) {
-					if(Tool.rentEquipment(ID, userID)) {
+				if (Tool.isEquipmentIDExisted(ID)) {
+					if (Tool.rentEquipment(ID, userID)) {
 						JOptionPane.showMessageDialog(null, "租用成功！");
 						MyEquipmentsJPanel.initTable(userID);
-					}else {
+					} else {
 						JOptionPane.showMessageDialog(null, "租用失败！");
 					}
-				}else {
+				} else {
 					JOptionPane.showMessageDialog(null, "无此ID设备！");
 					textField.setText("");
 				}
@@ -99,7 +104,7 @@ public class RentEquipmentJFrame extends JFrame {
 		});
 		contentPane.add(btnNewButton);
 	}
-	
+
 	public static void FitTableColumns(JTable myTable) {// 设置table边框自适应
 		JTableHeader header = myTable.getTableHeader();
 		int rowCount = myTable.getRowCount();
@@ -121,7 +126,7 @@ public class RentEquipmentJFrame extends JFrame {
 			column.setWidth(width + myTable.getIntercellSpacing().width);
 		}
 	}
-	
+
 	public static void initTable() {
 		vName = new Vector<String>();
 		vData = new Vector<String>();
@@ -135,14 +140,14 @@ public class RentEquipmentJFrame extends JFrame {
 		vName.add("设备状态");
 		vName.add("设备来源");
 		vName.add("所属工厂");
-		int  i =1;
-		for(Object o : data) {
-			Equipment e = (Equipment)o;
+		int i = 1;
+		for (Object o : data) {
+			Equipment e = (Equipment) o;
 			e.setEquipmentNumber(i);
 			Vector<String> vRow = new Vector<String>();
-			if(e.getEquipmentOwnedFactory()==null) {
-				if(e.getRentState().equals("未被租用")) {
-					vRow.add(i+"");
+			if (e.getEquipmentOwnedFactory() == null) {
+				if (e.getRentState().equals("未被租用")) {
+					vRow.add(i + "");
 					vRow.add(e.getEquipmentID());
 					vRow.add(e.getEquipmentName());
 					vRow.add(e.getEuipmentType().getEquipmentType());

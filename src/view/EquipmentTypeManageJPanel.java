@@ -25,6 +25,11 @@ import entity.Equipment;
 import entity.EquipmentType;
 import utils.FileUtils;
 
+/**
+ * @author 刘超20195556
+ * @Date Jul 22, 2020
+ * @Description 设备类型管理面板
+ */
 public class EquipmentTypeManageJPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JScrollPane scollPane;
@@ -37,83 +42,81 @@ public class EquipmentTypeManageJPanel extends JPanel {
 	 */
 	public EquipmentTypeManageJPanel() {
 		setLayout(null);
-		
-		
+
 		table = new JTable();
 		table.setBounds(41, 114, 900, 500);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		// 设置table内容居中 //
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 		tcr.setHorizontalAlignment(SwingConstants.CENTER);
-        table.setDefaultRenderer(Object.class, tcr);
-		
+		table.setDefaultRenderer(Object.class, tcr);
+
 		scollPane = new JScrollPane();
 		scollPane.setOpaque(false);
 		scollPane.getViewport().setOpaque(false);
 		scollPane.setViewportView(table);
-		scollPane.setBounds(41,114,900,500);
+		scollPane.setBounds(41, 114, 900, 500);
 		add(scollPane);
-		
+
 		initTable();
-		
+
 		JLabel label = new JLabel("");
 		label.setBounds(20, 20, 942, 610);
 		label.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 		add(label);
-		
+
 		JButton btnNewButton = new JButton("新建");
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(0, 102, 255));
 		btnNewButton.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton.setBounds(41, 60, 80, 30);
 		btnNewButton.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				CreateEquipmentTypeJFrame frame = new CreateEquipmentTypeJFrame();
 				frame.setVisible(true);
-				
+
 			}
 		});
 		add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("检索");
 		btnNewButton_1.setForeground(Color.WHITE);
 		btnNewButton_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_1.setBackground(new Color(255, 153, 0));
 		btnNewButton_1.setBounds(166, 60, 80, 30);
 		btnNewButton_1.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				SearchEquipmentTypeJFrame frame = new SearchEquipmentTypeJFrame();
 				frame.setVisible(true);
 			}
 		});
 		add(btnNewButton_1);
-		
+
 		JButton btnNewButton_2 = new JButton("修改");
 		btnNewButton_2.setForeground(Color.WHITE);
 		btnNewButton_2.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_2.setBackground(new Color(0, 255, 0));
 		btnNewButton_2.setBounds(283, 60, 80, 30);
 		btnNewButton_2.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ChangeEquipmentTypeJFrame frame = new ChangeEquipmentTypeJFrame();
 				frame.setVisible(true);
-				
-				
+
 			}
 		});
 		add(btnNewButton_2);
-		
+
 		JButton btnNewButton_2_1 = new JButton("删除");
 		btnNewButton_2_1.setForeground(Color.WHITE);
 		btnNewButton_2_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_2_1.setBackground(new Color(255, 0, 0));
 		btnNewButton_2_1.setBounds(403, 60, 80, 30);
 		btnNewButton_2_1.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				DeleteEquipmentTypeJFrame frame = new DeleteEquipmentTypeJFrame();
@@ -121,14 +124,14 @@ public class EquipmentTypeManageJPanel extends JPanel {
 			}
 		});
 		add(btnNewButton_2_1);
-		
+
 		JButton btnNewButton_2_1_1 = new JButton("返回登录界面");
 		btnNewButton_2_1_1.setForeground(Color.BLACK);
 		btnNewButton_2_1_1.setFont(new Font("STFangsong", Font.PLAIN, 20));
 		btnNewButton_2_1_1.setBackground(new Color(255, 255, 0));
 		btnNewButton_2_1_1.setBounds(750, 60, 200, 30);
 		btnNewButton_2_1_1.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -137,17 +140,18 @@ public class EquipmentTypeManageJPanel extends JPanel {
 				frame.dispose();
 				LogInJFrame frame_1 = new LogInJFrame();
 				frame_1.setVisible(true);
-				
+
 			}
 		});
 		add(btnNewButton_2_1_1);
-		
+
 		JLabel lblNewLabel = new JLabel("设备类型列表");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(444, 25, 94, 31);
 		add(lblNewLabel);
 
 	}
+
 	public static void FitTableColumns(JTable myTable) {// 设置table边框自适应
 		JTableHeader header = myTable.getTableHeader();
 		int rowCount = myTable.getRowCount();
@@ -169,17 +173,18 @@ public class EquipmentTypeManageJPanel extends JPanel {
 			column.setWidth(width + myTable.getIntercellSpacing().width);
 		}
 	}
+
 	public static void initTable() {
 		vName = new Vector<String>();
 		vData = new Vector<String>();
 		List<Object> data = FileUtils.getData("EquipmentTypes.txt", EquipmentType.class);
 		vName.add("序号");
 		vName.add("类型名称");
-		int i=1;
-		for(Object o : data) {
-			EquipmentType et = (EquipmentType)o;
+		int i = 1;
+		for (Object o : data) {
+			EquipmentType et = (EquipmentType) o;
 			Vector<String> vRow = new Vector<String>();
-			vRow.add(i+"");
+			vRow.add(i + "");
 			vRow.add(et.getEquipmentType());
 			i++;
 			vData.add(vRow.clone());
@@ -187,16 +192,16 @@ public class EquipmentTypeManageJPanel extends JPanel {
 		table.setModel(new DefaultTableModel(vData, vName));
 		FitTableColumns(table);
 	}
-	
+
 	public static void initTable(ArrayList<String> list) {
 		vName = new Vector<String>();
 		vData = new Vector<String>();
 		vName.add("序号");
 		vName.add("类型名称");
-		int i=1;
-		for(String s : list) {
+		int i = 1;
+		for (String s : list) {
 			Vector<String> vRow = new Vector<String>();
-			vRow.add(i+"");
+			vRow.add(i + "");
 			vRow.add(s);
 			i++;
 			vData.add(vRow.clone());

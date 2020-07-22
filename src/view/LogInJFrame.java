@@ -22,11 +22,12 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Cursor;
 
+/**
+ * @author 刘超20195556
+ * @Date Jul 22, 2020
+ * @Description 程序入口，登录界面
+ */
 public class LogInJFrame extends JFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
@@ -90,7 +91,7 @@ public class LogInJFrame extends JFrame {
 				UserContoller userContoller = new UserContoller("User");
 				String userID = textField.getText();
 				String password = new String(passwordField.getPassword());
-				if(userID.equals(SuperAdministrator.ID)&&password.equals(SuperAdministrator.Password)) {
+				if (userID.equals(SuperAdministrator.ID) && password.equals(SuperAdministrator.Password)) {
 					SuperAdministratorJFrame frame = SuperAdministratorJFrame.getInstance();
 					frame.setVisible(true);
 					dispose();
@@ -101,7 +102,7 @@ public class LogInJFrame extends JFrame {
 					frame.setVisible(true);
 					dispose();
 				} else if (userContoller.verify(userID, password) == 2) {
-					
+
 				} else {
 					JOptionPane.showMessageDialog(null, "您输入的账号或密码不正确！");
 					passwordField.setText("");
@@ -110,8 +111,8 @@ public class LogInJFrame extends JFrame {
 			}
 		});
 		contentPane.add(btnNewButton);
-		
-		KeyListener keyListener = new KeyListener() {//添加监听器
+
+		KeyListener keyListener = new KeyListener() {// 添加监听器
 
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -126,13 +127,13 @@ public class LogInJFrame extends JFrame {
 			}
 
 			@Override
-			public void keyPressed(KeyEvent e) {//实现回车登录
+			public void keyPressed(KeyEvent e) {// 实现回车登录
 				// TODO Auto-generated method stub
 				if (e.getKeyChar() == KeyEvent.VK_ENTER) {// 回车
 					UserContoller userContoller = new UserContoller("User");
 					String userID = textField.getText();
 					String password = new String(passwordField.getPassword());
-					if(userID.equals(SuperAdministrator.ID)&&password.equals(SuperAdministrator.Password)) {
+					if (userID.equals(SuperAdministrator.ID) && password.equals(SuperAdministrator.Password)) {
 						SuperAdministratorJFrame frame = SuperAdministratorJFrame.getInstance();
 						frame.setVisible(true);
 						dispose();
@@ -143,7 +144,7 @@ public class LogInJFrame extends JFrame {
 						frame.setVisible(true);
 						dispose();
 					} else if (userContoller.verify(userID, password) == 2) {
-						
+
 					} else {
 						JOptionPane.showMessageDialog(null, "您输入的账号或密码不正确！");
 						passwordField.setText("");

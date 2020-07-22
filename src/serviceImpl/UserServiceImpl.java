@@ -13,21 +13,26 @@ import utils.FileUtils;
 import utils.GsonUtils;
 import utils.Tool;
 
-public class UserServiceImpl implements UserService{
+/**
+ * @author 刘超20195556
+ * @Date Jul 22, 2020
+ * @Description 用户接口实现类
+ */
+public class UserServiceImpl implements UserService {
 
 	@Override
-	public int verify(String userID, String password) {
+	public int verify(String userID, String password) {// 登录验证
 		List<Object> mList = FileUtils.getData("CloudFactoryManagers.txt", CloudFactoryManager.class);
 		List<Object> dList = FileUtils.getData("Dealers.txt", Dealer.class);
-		for(Object o : mList) {
-			CloudFactoryManager user = (CloudFactoryManager)o;
-			if(user.getUserID().equals(userID)&&user.getUserPassword().equals(password)) {
+		for (Object o : mList) {// 验证云工厂管理员
+			CloudFactoryManager user = (CloudFactoryManager) o;
+			if (user.getUserID().equals(userID) && user.getUserPassword().equals(password)) {
 				return 1;
 			}
 		}
-		for(Object o : dList) {
-			Dealer user = (Dealer)o;
-			if(user.getUserID().equals(userID)&&user.getUserPassword().equals(password)) {
+		for (Object o : dList) {// 验证经销商
+			Dealer user = (Dealer) o;
+			if (user.getUserID().equals(userID) && user.getUserPassword().equals(password)) {
 				return 2;
 			}
 		}
@@ -35,7 +40,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean addCloudFactoryManager(CloudFactoryManager cfm) {
+	public boolean addCloudFactoryManager(CloudFactoryManager cfm) {// 添加云工厂管理员
 		try {
 			String data = GsonUtils.toJson(cfm);
 			FileUtils.writeData(data, "CloudFactoryManagers.txt", true);
@@ -46,7 +51,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean addDealer(Dealer d) {
+	public boolean addDealer(Dealer d) {// 添加经销商
 		try {
 			String data = GsonUtils.toJson(d);
 			FileUtils.writeData(data, "Dealers.txt", true);
@@ -57,7 +62,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean deleteUser(String userID) {
+	public boolean deleteUser(String userID) {// 删除用户
 		// TODO Auto-generated method stub
 		List<Object> mList = FileUtils.getData("CloudFactoryManagers.txt", CloudFactoryManager.class);
 		List<Object> dList = FileUtils.getData("Dealers.txt", Dealer.class);
@@ -65,101 +70,101 @@ public class UserServiceImpl implements UserService{
 		List<Dealer> updatedDList = new ArrayList<Dealer>();
 		List<Object> equipments = FileUtils.getData("Equipments.txt", Equipment.class);
 		List<Equipment> updatedEquipments = new ArrayList<Equipment>();
-		int i=1,j=1,k=1;
-		
-		for(Object o : mList) {
-			CloudFactoryManager cfm = (CloudFactoryManager)o;
-			if(!cfm.getUserID().equals(userID)) {
+		int i = 1, j = 1, k = 1;
+
+		for (Object o : mList) {
+			CloudFactoryManager cfm = (CloudFactoryManager) o;
+			if (!cfm.getUserID().equals(userID)) {
 				updatedMList.add(cfm);
 			}
 		}
-		
-		for(Object o : dList) {
-			Dealer d = (Dealer)o;
-			if(!d.getUserID().equals(userID)) {
+
+		for (Object o : dList) {
+			Dealer d = (Dealer) o;
+			if (!d.getUserID().equals(userID)) {
 				updatedDList.add(d);
 			}
 		}
-		
-		for(Object o : equipments) {
-			Equipment emt = (Equipment)o;
-			if(!emt.getEquipmentOwnedFactory().getMyManagerID().equals(userID)) {
+
+		for (Object o : equipments) {
+			Equipment emt = (Equipment) o;
+			if (!emt.getEquipmentOwnedFactory().getMyManagerID().equals(userID)) {
 				updatedEquipments.add(emt);
 			}
 		}
-		
-		if(updatedMList.isEmpty()) {
+
+		if (updatedMList.isEmpty()) {
 			Tool.clearInfoForFile("CloudFactoryManagers.txt");
 		}
-		if(updatedDList.isEmpty()) {
+		if (updatedDList.isEmpty()) {
 			Tool.clearInfoForFile("Dealers.txt");
 		}
-		if(updatedEquipments.isEmpty()) {
+		if (updatedEquipments.isEmpty()) {
 			Tool.clearInfoForFile("Equipments.txt");
 		}
-		for(CloudFactoryManager cfm : updatedMList) {
+		for (CloudFactoryManager cfm : updatedMList) {
 			String data = GsonUtils.toJson(cfm);
 			try {
-				if(i==1) {
+				if (i == 1) {
 					FileUtils.writeData(data, "CloudFactoryManagers.txt", false);
 					i++;
-				}else {
+				} else {
 					FileUtils.writeData(data, "CloudFactoryManagers.txt", true);
 				}
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				return false;
 			}
 		}
-		for(Dealer d : updatedDList) {
+		for (Dealer d : updatedDList) {
 			String data = GsonUtils.toJson(d);
 			try {
-				if(j==1) {
+				if (j == 1) {
 					FileUtils.writeData(data, "Dealers.txt", false);
 					j++;
-				}else {
+				} else {
 					FileUtils.writeData(data, "Dealers.txt", true);
 				}
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				return false;
 			}
 		}
-		
-		for(Equipment emt : updatedEquipments) {
+
+		for (Equipment emt : updatedEquipments) {
 			String data = GsonUtils.toJson(emt);
 			try {
-				if(k==1) {
+				if (k == 1) {
 					FileUtils.writeData(data, "Equipments.txt", false);
 					k++;
-				}else {
+				} else {
 					FileUtils.writeData(data, "Equipments.txt", true);
 				}
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
 	@Override
-	public User getUserById(String userID) {
+	public User getUserById(String userID) {// 通过ID获取用户
 		List<Object> mList = FileUtils.getData("CloudFactoryManagers.txt", CloudFactoryManager.class);
 		List<Object> dList = FileUtils.getData("Dealers.txt", Dealer.class);
-		for(Object o : mList) {
-			CloudFactoryManager cfm = (CloudFactoryManager)o;
-			if(cfm.getUserID().equals(userID)) {
+		for (Object o : mList) {
+			CloudFactoryManager cfm = (CloudFactoryManager) o;
+			if (cfm.getUserID().equals(userID)) {
 				return cfm;
 			}
 		}
-		for(Object o : dList) {
-			Dealer d = (Dealer)o;
-			if(d.getUserID().equals(userID)) {
+		for (Object o : dList) {
+			Dealer d = (Dealer) o;
+			if (d.getUserID().equals(userID)) {
 				return d;
 			}
 		}
@@ -167,28 +172,28 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean changeCloudFactoryManager(CloudFactoryManager cfm) {
-		int i=1;
+	public boolean changeCloudFactoryManager(CloudFactoryManager cfm) {// 修改云工厂管理员
+		int i = 1;
 		List<Object> mList = FileUtils.getData("CloudFactoryManagers.txt", CloudFactoryManager.class);
 		List<CloudFactoryManager> cfms = new ArrayList<CloudFactoryManager>();
-		for(Object o : mList) {
-			CloudFactoryManager CFM = (CloudFactoryManager)o;
-			if(CFM.getUserID().equals(cfm.getUserID())) {
+		for (Object o : mList) {
+			CloudFactoryManager CFM = (CloudFactoryManager) o;
+			if (CFM.getUserID().equals(cfm.getUserID())) {
 				cfms.add(cfm);
 				continue;
 			}
 			cfms.add(CFM);
 		}
-		for(CloudFactoryManager C : cfms) {
+		for (CloudFactoryManager C : cfms) {
 			String data = GsonUtils.toJson(C);
 			try {
-				if(i==1) {
+				if (i == 1) {
 					FileUtils.writeData(data, "CloudFactoryManagers.txt", false);
 					i++;
-				}else {
+				} else {
 					FileUtils.writeData(data, "CloudFactoryManagers.txt", true);
 				}
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				return false;
@@ -198,28 +203,28 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean changeDealer(Dealer d) {
-		int i=1;
+	public boolean changeDealer(Dealer d) {// 修改经销商
+		int i = 1;
 		List<Object> dList = FileUtils.getData("Dealers.txt", Dealer.class);
 		List<Dealer> dls = new ArrayList<Dealer>();
-		for(Object o : dList) {
-			Dealer D = (Dealer)o;
-			if(D.getUserID().equals(d.getUserID())) {
+		for (Object o : dList) {
+			Dealer D = (Dealer) o;
+			if (D.getUserID().equals(d.getUserID())) {
 				dls.add(d);
 				continue;
 			}
 			dls.add(D);
 		}
-		for(Dealer DL : dls) {
+		for (Dealer DL : dls) {
 			String data = GsonUtils.toJson(DL);
 			try {
-				if(i==1) {
+				if (i == 1) {
 					FileUtils.writeData(data, "Dealers.txt", false);
 					i++;
-				}else {
+				} else {
 					FileUtils.writeData(data, "Dealers.txt", true);
 				}
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				return false;
